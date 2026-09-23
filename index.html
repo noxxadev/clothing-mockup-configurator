@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Interactive clothing mockup configurator.">
+  <meta name="description" content="Interactive clothing mockup configurator with front and back garment color controls.">
   <title>Clothing Mockup Configurator</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -11,7 +11,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="./">Clothing Mockup Configurator</a>
-      <span class="status-badge">Phase 1</span>
+      <span class="status-badge">Phase 2B</span>
     </div>
   </header>
 
@@ -20,8 +20,8 @@
       <p class="eyebrow">Interactive Clothing Designer</p>
       <h1>Build your clothing mockup</h1>
       <p class="hero-copy">
-        A foundation for independently customizable clothing sections.
-        The editable SVG clothing system will be added in Phase 2.
+        Change the front and back T-shirt colors in real time. The garment silhouette
+        comes from the analyzed master PSD masks, keeping the original source artwork separate from editor logic.
       </p>
     </section>
 
@@ -30,16 +30,45 @@
         <div class="card-heading">
           <div>
             <p class="eyebrow">Preview</p>
-            <h2>Clothing Mockup</h2>
+            <h2>T-shirt Mockup</h2>
           </div>
-          <span class="view-label">Front</span>
+          <div class="view-switcher" role="group" aria-label="Mockup view">
+            <button class="view-button is-active" type="button" data-view="front" aria-pressed="true">Front</button>
+            <button class="view-button" type="button" data-view="back" aria-pressed="false">Back</button>
+          </div>
         </div>
 
-        <div class="mockup-stage" id="mockupStage">
-          <div class="mockup-placeholder" id="mockupPlaceholder">
-            <span class="placeholder-icon" aria-hidden="true">+</span>
-            <strong>Master clothing artwork</strong>
-            <span>SVG mockup will be connected here in Phase 2.</span>
+        <div class="mockup-stage">
+          <div class="garment-wrap">
+            <svg class="shirt-svg is-active" data-garment-view="front" viewBox="0 0 2109 1796" role="img" aria-label="Front T-shirt preview">
+              <defs>
+                <mask id="frontGarmentMask" maskUnits="userSpaceOnUse" x="0" y="0" width="2109" height="1796" mask-type="luminance">
+                  <image href="assets/clothing/tshirt/master/front-mask.png" x="0" y="0" width="2109" height="1796" preserveAspectRatio="none"></image>
+                </mask>
+                <linearGradient id="frontHighlight" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity=".16"></stop>
+                  <stop offset=".42" stop-color="#ffffff" stop-opacity="0"></stop>
+                  <stop offset="1" stop-color="#000000" stop-opacity=".12"></stop>
+                </linearGradient>
+              </defs>
+              <rect class="shirt-color" x="0" y="0" width="2109" height="1796" mask="url(#frontGarmentMask)" fill="var(--shirt-color)"></rect>
+              <rect x="0" y="0" width="2109" height="1796" mask="url(#frontGarmentMask)" fill="url(#frontHighlight)"></rect>
+            </svg>
+
+            <svg class="shirt-svg" data-garment-view="back" viewBox="0 0 2095 1787" role="img" aria-label="Back T-shirt preview">
+              <defs>
+                <mask id="backGarmentMask" maskUnits="userSpaceOnUse" x="0" y="0" width="2095" height="1787" mask-type="luminance">
+                  <image href="assets/clothing/tshirt/master/back-mask.png" x="0" y="0" width="2095" height="1787" preserveAspectRatio="none"></image>
+                </mask>
+                <linearGradient id="backHighlight" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity=".16"></stop>
+                  <stop offset=".42" stop-color="#ffffff" stop-opacity="0"></stop>
+                  <stop offset="1" stop-color="#000000" stop-opacity=".12"></stop>
+                </linearGradient>
+              </defs>
+              <rect class="shirt-color" x="0" y="0" width="2095" height="1787" mask="url(#backGarmentMask)" fill="var(--shirt-color)"></rect>
+              <rect x="0" y="0" width="2095" height="1787" mask="url(#backGarmentMask)" fill="url(#backHighlight)"></rect>
+            </svg>
           </div>
         </div>
       </div>
@@ -48,17 +77,44 @@
         <div class="card-heading">
           <div>
             <p class="eyebrow">Controls</p>
-            <h2>Clothing Sections</h2>
+            <h2>Garment Colors</h2>
           </div>
         </div>
 
-        <div class="empty-state">
-          <strong>Ready for customization</strong>
-          <p>
-            Clothing sections, color controls, and presets will become
-            available after the SVG layer system is added.
-          </p>
+        <div class="control-group">
+          <label class="control-label" for="frontColor">Front color</label>
+          <div class="color-control">
+            <input id="frontColor" class="color-input" type="color" value="#f3f4f6" data-color-target="front">
+            <input id="frontColorText" class="hex-input" type="text" value="#F3F4F6" maxlength="7" inputmode="text" data-color-text="front" aria-label="Front color hex value">
+          </div>
         </div>
+
+        <div class="control-group">
+          <label class="control-label" for="backColor">Back color</label>
+          <div class="color-control">
+            <input id="backColor" class="color-input" type="color" value="#f3f4f6" data-color-target="back">
+            <input id="backColorText" class="hex-input" type="text" value="#F3F4F6" maxlength="7" inputmode="text" data-color-text="back" aria-label="Back color hex value">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="control-label-row">
+            <span class="control-label">Color presets</span>
+          </div>
+          <div class="preset-grid" aria-label="Color presets">
+            <button class="preset" type="button" data-color="#111827" style="--preset-color:#111827" aria-label="Black"></button>
+            <button class="preset" type="button" data-color="#f3f4f6" style="--preset-color:#f3f4f6" aria-label="Light gray"></button>
+            <button class="preset" type="button" data-color="#dc2626" style="--preset-color:#dc2626" aria-label="Red"></button>
+            <button class="preset" type="button" data-color="#2563eb" style="--preset-color:#2563eb" aria-label="Blue"></button>
+            <button class="preset" type="button" data-color="#16a34a" style="--preset-color:#16a34a" aria-label="Green"></button>
+            <button class="preset" type="button" data-color="#f59e0b" style="--preset-color:#f59e0b" aria-label="Amber"></button>
+            <button class="preset" type="button" data-color="#7c3aed" style="--preset-color:#7c3aed" aria-label="Purple"></button>
+            <button class="preset" type="button" data-color="#ec4899" style="--preset-color:#ec4899" aria-label="Pink"></button>
+          </div>
+          <p class="control-hint">Preset applies to the currently selected view.</p>
+        </div>
+
+        <button id="resetColors" class="reset-button" type="button">Reset colors</button>
       </aside>
     </section>
   </main>
@@ -66,7 +122,7 @@
   <footer class="site-footer">
     <div class="container">
       <span>Clothing Mockup Configurator</span>
-      <span>Foundation ready</span>
+      <span>Phase 2B — Front/Back color system</span>
     </div>
   </footer>
 

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive clothing mockup configurator.">
+  <title>Clothing Mockup Configurator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./">Clothing Mockup Configurator</a>
+      <span class="status-badge">Phase 1</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">Interactive Clothing Designer</p>
+      <h1>Build your clothing mockup</h1>
+      <p class="hero-copy">
+        A foundation for independently customizable clothing sections.
+        The editable SVG clothing system will be added in Phase 2.
+      </p>
+    </section>
+
+    <section class="workspace" aria-label="Mockup workspace">
+      <div class="preview-card">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Preview</p>
+            <h2>Clothing Mockup</h2>
+          </div>
+          <span class="view-label">Front</span>
+        </div>
+
+        <div class="mockup-stage" id="mockupStage">
+          <div class="mockup-placeholder" id="mockupPlaceholder">
+            <span class="placeholder-icon" aria-hidden="true">+</span>
+            <strong>Master clothing artwork</strong>
+            <span>SVG mockup will be connected here in Phase 2.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="controls-card" aria-label="Configurator controls">
+        <div class="card-heading">
+          <div>
+            <p class="eyebrow">Controls</p>
+            <h2>Clothing Sections</h2>
+          </div>
+        </div>
+
+        <div class="empty-state">
+          <strong>Ready for customization</strong>
+          <p>
+            Clothing sections, color controls, and presets will become
+            available after the SVG layer system is added.
+          </p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Clothing Mockup Configurator</span>
+      <span>Foundation ready</span>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

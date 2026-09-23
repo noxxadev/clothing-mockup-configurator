@@ -6,9 +6,9 @@ The project is being developed in phases so the visual editor can be expanded wi
 
 ## Current Status
 
-**Phase 2A — Master PSD Analysis & Asset Extraction: COMPLETE**
+**Phase 2B — Interactive Clothing / Color System: COMPLETE**
 
-The supplied Dual Side T-shirt Artwork Mockup.psd was inspected and its usable web-oriented layers were identified. The PSD itself is **not** committed to the repository because it is a 232 MB source file and is not required for runtime.
+The first interactive T-shirt color system is now connected to the extracted master masks. Front and back colors can be changed independently in real time without reloading the page.
 
 ## Project Structure
 
@@ -24,7 +24,9 @@ clothing-mockup-configurator/
     └── clothing/
         └── tshirt/
             └── master/
-                └── README.md
+                ├── README.md
+                ├── front-mask.png
+                └── back-mask.png
 ```
 
 ## Roadmap
@@ -33,7 +35,8 @@ clothing-mockup-configurator/
 |---|---|---|
 | 1 | Foundation & Project Setup | COMPLETE |
 | 2A | Master PSD Analysis & Asset Extraction | COMPLETE |
-| 2B | Interactive Clothing / Color System | TODO |
+| 2B | Interactive Clothing / Color System | COMPLETE |
+| 2C | Independent Clothing Sections | TODO |
 | 3 | Mockup Editor | TODO |
 | 4 | Front / Back / Side Views | TODO |
 | 5 | Multi Product System | TODO |
@@ -63,90 +66,34 @@ Relevant layers identified:
 
 Important finding:
 
-The master already separates **front and back color masks**, which is useful for web recoloring. However, the PSD does **not** provide independent web-ready layers for every requested clothing section such as body, left sleeve, right sleeve, and collar.
-
-Therefore Phase 2B will not pretend that the current PSD already supports per-section recoloring. We will first build the front/back color system, then determine the safest method to create finer clothing masks without damaging the original mockup appearance.
-
-Runtime assets should be optimized derivatives rather than the original 232 MB PSD.
+The master already separates front/back color masks, which is useful for web recoloring. However, the PSD does not provide independent web-ready layers for every requested clothing section such as body, left sleeve, right sleeve, and collar.
 
 ### Phase 2B — Interactive Clothing / Color System
 
-Planned:
+Implemented:
 
-- Integrate the extracted front/back shirt assets.
-- Preserve the mockup's texture/shading where practical.
-- Add front and back color controls.
-- Add color presets.
-- Add reset functionality.
-- Update colors in real time without page reload.
-- Evaluate and implement independent section masks for body/sleeves/collar if the source artwork can support them accurately.
-- Keep design artwork separate from garment color logic.
+- Front T-shirt preview using the extracted front mask.
+- Back T-shirt preview using the extracted back mask.
+- Independent front and back color state.
+- Native color picker for each view.
+- Hex color input for each view.
+- Eight reusable color presets.
+- Front/back view switcher.
+- Reset colors button.
+- Real-time updates without page reload.
+- No backend or database dependency.
+- Original PSD remains outside the runtime bundle.
 
-### Phase 3 — Mockup Editor
+The current preview uses the source masks with lightweight highlight/shadow overlays. The full photorealistic PSD texture is intentionally not bundled yet; this keeps the first web implementation lightweight while the independent section-mask strategy is evaluated.
 
-Planned:
+### Phase 2C — Independent Clothing Sections
 
-- Upload logo/artwork.
-- Drag and drop artwork.
-- Resize.
-- Rotate.
-- Position X/Y.
-- Delete/reset artwork.
+Next:
 
-### Phase 4 — Front / Back / Side Views
-
-Planned:
-
-- Front view.
-- Back view.
-- Side view where supported by the selected product.
-- Keep color configuration synchronized between views where appropriate.
-
-### Phase 5 — Multi Product System
-
-Planned:
-
-- T-shirt.
-- Hoodie.
-- Jersey.
-- Polo.
-- Long sleeve.
-- Oversized T-shirt.
-
-Products will be added incrementally rather than forcing all products into the first implementation.
-
-### Phase 6 — Save & Export
-
-Planned:
-
-- Save configuration.
-- Load configuration.
-- Reset configuration.
-- LocalStorage persistence.
-- PNG export.
-
-### Phase 7 — GitHub Pages
-
-Planned:
-
-- Verify relative asset paths.
-- Verify SVG/CSS/JS loading on GitHub Pages.
-- Test browser refresh/navigation.
-- Test desktop and mobile layouts.
-- Verify deployment behavior.
-
-### Phase 8 — Optimization & Security
-
-Planned:
-
-- Optimize SVG and image assets.
-- Validate uploaded files.
-- Add file-size limits.
-- Sanitize user-provided SVG where required.
-- Review browser-side security concerns.
-- Add Content Security Policy if appropriate.
-- Review dependencies when dependencies are introduced.
-- Final responsive and browser compatibility checks.
+- Determine accurate masks for body, left sleeve, right sleeve, collar, and trim.
+- Avoid overlapping masks that produce unexpected color bleed.
+- Keep front/back state synchronized with section state.
+- Preserve the master mockup proportions and visual boundaries.
 
 ## Development Rules
 
@@ -156,3 +103,4 @@ Planned:
 4. Keep clothing assets independent from editor controls.
 5. Do not introduce backend/database requirements unless a later feature actually needs them.
 6. Update this README after meaningful project changes.
+7. Do not alter the source PSD; derive optimized web assets from it.
